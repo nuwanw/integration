@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="IS_functional_TestSuite">
+	<parameter name="useDefaultListeners" value="false" />
+
+	<test name="Test - IS" preserve-order="true" parallel="false">
+		<packages>
+       		<!--<package name="org.wso2.carbon.identity.tests.user.store.config.*" />-->
+			<package name="org.wso2.carbon.identity.tests.user.*" />
+<!--  			 <package name="org.wso2.carbon.identity.tests.openid.*" />   --> 
+		</packages>
+<!--
+		<classes>
+			&lt;!&ndash; <class name="org.wso2.carbon.identity.tests.saml.AllClaimURIsTestCase"/> &ndash;&gt;
+          		<class name="org.wso2.carbon.identity.tests.scim.SCIMServiceProviderUserTestCase" />
+			<class name="org.wso2.carbon.identity.tests.scim.SCIMServiceProviderGroupTestCase" />         
+			&lt;!&ndash; <class name="org.wso2.carbon.identity.tests.scim.SCIMGlobalProviderTestCase"/> &ndash;&gt;
+			&lt;!&ndash; <class name="org.wso2.carbon.identity.tests.saml.SSOSessionTimeoutTestCase"/> &ndash;&gt;
+           	<class name="org.wso2.carbon.identity.tests.user.mgt.ReadWriteLdapBasedUserMgtTestCase" />
+			<class name="org.wso2.carbon.identity.tests.user.mgt.JDBCBasedUserMgtTestCase" />         
+			&lt;!&ndash; <class name="org.wso2.carbon.identity.tests.user.mgt.ReadOnlyLdapBasedUserMgtTestCase"/>
+ 			   <class name="org.wso2.carbon.identity.tests.user.mgt.UserMgtTestCase"/>  &ndash;&gt;
+        		<class name="org.wso2.carbon.identity.tests.entitlement.EntitlementPolicyAdminServiceTestCase"/>
+			<class name="org.wso2.carbon.identity.tests.entitlement.EntitlementAdminServiceTestCase"/>  
+&lt;!&ndash; 			<class name="org.wso2.carbon.identity.tests.oauth2.OAuth2ServiceAuthCodeGrantTestCase" /> &ndash;&gt;
+			<class name="org.wso2.carbon.identity.tests.openid.OpenIDAuthenticationTestCase" />
+			<class name="org.wso2.carbon.identity.tests.openid.OpenIDProviderServerConfigTestCase" /> 
+&lt;!&ndash;   			<class name="org.wso2.carbon.identity.tests.openid.OpenIDUserProfileTestCase" /> &ndash;&gt;
+ 			<class name="org.wso2.carbon.identity.tests.identity.mgt.UserInformationRecoveryServiceTestCase"/> 
+		</classes>-->
+	</test>
+</suite>
