@@ -1,4 +1,0 @@
-integration
-===========
-
-IS test integration
