@@ -31,6 +31,7 @@ import org.wso2.carbon.identity.user.profile.stub.types.UserProfileDTO;
 import org.wso2.carbon.integration.common.admin.client.AuthenticatorClient;
 import org.wso2.carbon.integration.common.admin.client.UserManagementClient;
 import org.wso2.carbon.integration.common.admin.client.UserProfileMgtAdminServiceClient;
+import org.wso2.carbon.user.mgt.stub.UserAdminUserAdminException;
 import org.wso2.carbon.user.mgt.stub.types.carbon.ClaimValue;
 import org.wso2.carbon.user.mgt.stub.types.carbon.FlaggedName;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UIPermissionNode;
@@ -40,6 +41,7 @@ import org.wso2.identity.integration.test.ISIntegrationTest;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import java.io.File;
+import java.rmi.RemoteException;
 
 public abstract class UserManagementServiceAbstractTest extends ISIntegrationTest {
     private static final Log log = LogFactory.getLog(UserManagementServiceAbstractTest.class);
@@ -50,7 +52,6 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
     protected String newUserPassword;
     private String userRoleTmp;
 
-    @BeforeClass(alwaysRun = true)
     public void doInit() throws Exception {
         //creating context as super admin
         super.init(TestUserMode.SUPER_TENANT_ADMIN);
@@ -62,6 +63,21 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
         Assert.assertNotNull(newUserName, "Please set a value to userName");
         Assert.assertNotNull(newUserRole, "Please set a value to userRole");
 
+    }
+
+    public void clean() throws Exception {
+        if (nameExists(userMgtClient.listAllUsers(newUserName, 10), newUserName)) {
+            userMgtClient.deleteUser(newUserName);
+        }
+        if (userMgtClient.roleNameExists(newUserRole)) {
+            userMgtClient.deleteRole(newUserRole);
+        }
+        if (userMgtClient.roleNameExists(newUserRole + "tmpupdated")) {
+            userMgtClient.deleteRole(newUserRole + "tmpupdated");
+        }
+        if (userMgtClient.roleNameExists(newUserRole + "tmp")) {
+            userMgtClient.deleteRole(newUserRole + "tmp");
+        }
     }
 
     @SetEnvironment(executionEnvironments = {ExecutionEnvironment.STANDALONE})
@@ -283,18 +299,22 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
                 = userProfileMgtAdminServiceClient.getUserProfile(newUserName, "default");
         UserFieldDTO[] fields = userProfileMgtAdminServiceClient.getProfileFieldsForInternalStore().getFieldValues();
         String profileConfigs = profile.getProfileName();
-        for(UserFieldDTO field : fields)   {
-            if(field.getDisplayName().equalsIgnoreCase("Last Name")) {
-                field.setFieldValue(newUserName+"LastName");
+        for (UserFieldDTO field : fields) {
+            if (field.getDisplayName().equalsIgnoreCase("Last Name")) {
+                field.setFieldValue(newUserName + "LastName");
                 continue;
             }
 
-            if(field.getRequired()) {
-                if(field.getDisplayName().equalsIgnoreCase("Email")) {
-                    field.setFieldValue(newUserName+"@wso2.com");
-                }  else {
+            if (field.getRequired()) {
+                if (field.getDisplayName().equalsIgnoreCase("Email")) {
+                    field.setFieldValue(newUserName + "@wso2.com");
+                } else {
                     field.setFieldValue(newUserName);
                 }
+                continue;
+            }
+            if (field.getFieldValue() == null) {
+                field.setFieldValue("");
             }
 
         }
@@ -308,7 +328,7 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
 
         ClaimValue claimValue = new ClaimValue();
         claimValue.setClaimURI("http://wso2.org/claims/lastname");
-        claimValue.setValue(newUserName);
+        claimValue.setValue(newUserName + "LastName");
 
 
         FlaggedName[] allNames = userMgtClient.listUserByClaim(claimValue, newUserName, 10);

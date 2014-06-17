@@ -19,7 +19,24 @@
 package org.wso2.identity.integration.test.user.mgt;
 
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.wso2.carbon.integration.common.utils.mgt.ServerConfigurationManager;
+
+import java.io.File;
+
 public class ReadWriteLDAPUserStoreManagerTestCase extends UserManagementServiceAbstractTest {
+
+    @BeforeClass(alwaysRun = true)
+    public void configureServer() throws Exception {
+        super.doInit();
+
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void restoreServer() throws Exception {
+        super.clean();
+    }
 
     @Override
     protected void setUserName() {

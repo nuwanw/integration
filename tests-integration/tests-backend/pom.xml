@@ -201,7 +201,7 @@
                             <resources>
                                 <resource>
                                     <directory>
-                                        ${basedir}/target/tobeCopied/wso2gis-${project.version}/repository/deployment/client/modules
+                                        ${basedir}/target/tobeCopied/wso2is-${project.version}/repository/deployment/client/modules
                                     </directory>
                                     <includes>
                                         <include>**/*.mar</include>
