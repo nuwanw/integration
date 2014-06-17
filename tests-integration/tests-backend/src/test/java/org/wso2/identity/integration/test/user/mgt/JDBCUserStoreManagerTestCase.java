@@ -47,8 +47,12 @@ public class JDBCUserStoreManagerTestCase extends UserManagementServiceAbstractT
 
     @AfterClass(alwaysRun = true)
     public void restoreServer() throws Exception {
-        super.clean();
-        scm.restoreToLastConfiguration();
+        try {
+            super.clean();
+        } finally {
+            scm.restoreToLastConfiguration();
+        }
+
     }
 
     @Override

@@ -21,7 +21,6 @@ package org.wso2.identity.integration.test.user.mgt;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.wso2.carbon.automation.engine.annotations.ExecutionEnvironment;
 import org.wso2.carbon.automation.engine.annotations.SetEnvironment;
@@ -31,7 +30,6 @@ import org.wso2.carbon.identity.user.profile.stub.types.UserProfileDTO;
 import org.wso2.carbon.integration.common.admin.client.AuthenticatorClient;
 import org.wso2.carbon.integration.common.admin.client.UserManagementClient;
 import org.wso2.carbon.integration.common.admin.client.UserProfileMgtAdminServiceClient;
-import org.wso2.carbon.user.mgt.stub.UserAdminUserAdminException;
 import org.wso2.carbon.user.mgt.stub.types.carbon.ClaimValue;
 import org.wso2.carbon.user.mgt.stub.types.carbon.FlaggedName;
 import org.wso2.carbon.user.mgt.stub.types.carbon.UIPermissionNode;
@@ -41,7 +39,6 @@ import org.wso2.identity.integration.test.ISIntegrationTest;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import java.io.File;
-import java.rmi.RemoteException;
 
 public abstract class UserManagementServiceAbstractTest extends ISIntegrationTest {
     private static final Log log = LogFactory.getLog(UserManagementServiceAbstractTest.class);
