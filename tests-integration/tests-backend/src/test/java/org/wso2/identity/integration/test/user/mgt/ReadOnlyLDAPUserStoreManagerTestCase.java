@@ -118,7 +118,7 @@ public class ReadOnlyLDAPUserStoreManagerTestCase extends ISIntegrationTest {
 
     }
 
-    @Test(groups = "wso2.is", description = "Check update role name", dependsOnMethods = "testUpdateUsersOfRole")
+    @Test(groups = "wso2.is", description = "Check update role name")
     public void testUpdateRoleName() {
         try {
             userMgtClient.updateRoleName(newUserRole, newUserRole + "updated");
@@ -181,7 +181,7 @@ public class ReadOnlyLDAPUserStoreManagerTestCase extends ISIntegrationTest {
     }
 
     @SetEnvironment(executionEnvironments = {ExecutionEnvironment.STANDALONE})
-    @Test(groups = "wso2.is", description = "Check delete role", dependsOnMethods = "addNewUser")
+    @Test(groups = "wso2.is", description = "Check delete role")
     public void testListAllUsers() throws Exception {
         FlaggedName[] userList = userMgtClient.listAllUsers("*", 100);
         Assert.assertTrue(userList.length > 0, "List all users return empty list");
@@ -189,7 +189,7 @@ public class ReadOnlyLDAPUserStoreManagerTestCase extends ISIntegrationTest {
     }
 
     @SetEnvironment(executionEnvironments = {ExecutionEnvironment.STANDALONE})
-    @Test(groups = "wso2.is", description = "Check delete role", dependsOnMethods = "testListAllUsers")
+    @Test(groups = "wso2.is", description = "Check delete role")
     public void testListUsers() throws Exception {
         String[] usersList = userMgtClient.listUsers("*", 100);
         Assert.assertNotNull(usersList, "UserList null");
@@ -200,6 +200,14 @@ public class ReadOnlyLDAPUserStoreManagerTestCase extends ISIntegrationTest {
     public void restoreServer() throws Exception {
 
         scm.restoreToLastConfiguration();
+        super.init(TestUserMode.SUPER_TENANT_ADMIN);
+        userMgtClient = new UserManagementClient(backendURL, getSessionCookie());
+        if (nameExists(userMgtClient.listAllUsers(newUserName, 10), newUserName)) {
+            userMgtClient.deleteUser(newUserName);
+        }
+        if (userMgtClient.roleNameExists(newUserRole)) {
+            userMgtClient.deleteRole(newUserRole);
+        }
     }
 
     private boolean nameExists(FlaggedName[] allNames, String inputName) {
