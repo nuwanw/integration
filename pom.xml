@@ -32,7 +32,7 @@
     <name>Identity Server Integration Tests</name>
     <packaging>pom</packaging>
     <modules>
-        <!--<module>tests</module>-->
+        <module>tests-common</module>
         <module>tests-integration</module>
     </modules>
     <build>
