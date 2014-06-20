@@ -55,8 +55,8 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
         userMgtClient = new UserManagementClient(backendURL, getSessionCookie());
         authenticatorClient = new AuthenticatorClient(backendURL);
         setUserName();
+        setUserPassword();
         setUserRole();
-        newUserPassword = newUserName + "123";
         Assert.assertNotNull(newUserName, "Please set a value to userName");
         Assert.assertNotNull(newUserRole, "Please set a value to userRole");
 
@@ -279,10 +279,9 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
     @Test(groups = "wso2.is", description = "Check get shared of current user", dependsOnMethods = "testChangePasswordOfUser")
     public void testGetRolesOfCurrentUser() throws Exception {
 
-
-        authenticatorClient.login(newUserName, newUserPassword, automationContext.getInstance().getHosts().get("default"));
-
-        Assert.assertTrue(nameExists(userMgtClient.getRolesOfCurrentUser(), newUserRole), "Getting current user roles has failed.");
+        String session = authenticatorClient.login(newUserName, newUserPassword, automationContext.getInstance().getHosts().get("default"));
+        UserManagementClient client = new UserManagementClient(backendURL, session);
+        Assert.assertTrue(nameExists(client.getRolesOfCurrentUser(), newUserRole), "Getting current user roles has failed.");
 
         authenticatorClient.logOut();
     }
@@ -420,6 +419,8 @@ public abstract class UserManagementServiceAbstractTest extends ISIntegrationTes
     }
 
     protected abstract void setUserName();
+
+    protected abstract void setUserPassword();
 
     protected abstract void setUserRole();
 

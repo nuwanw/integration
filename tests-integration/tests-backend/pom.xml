@@ -11,7 +11,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <name>Identity Test Module</name>
-    <artifactId>org.wso2.carbon.identitry.integration.test</artifactId>
+    <artifactId>org.wso2.carbon.identity.integration.test</artifactId>
     <packaging>jar</packaging>
 
     <build>
@@ -227,6 +227,17 @@
             <artifactId>org.wso2.identity.integration.common.utils</artifactId>
             <version>5.0.0</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.user.core</artifactId>
+            <version>4.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database.wso2</groupId>
+            <artifactId>h2-database-engine</artifactId>
+            <version>1.2.140.wso2v3</version>
         </dependency>
         <dependency>
             <groupId>org.uncommons</groupId>

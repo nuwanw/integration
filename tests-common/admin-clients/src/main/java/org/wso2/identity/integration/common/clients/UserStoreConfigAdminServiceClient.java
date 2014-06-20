@@ -128,8 +128,8 @@ public class UserStoreConfigAdminServiceClient {
      * @param isDisabled : set true to disable user store
      * @throws Exception
      */
-    public void changeUserStoreState(String domain, String isDisabled) throws Exception {
-        stub.changeUserStoreState(domain, Boolean.parseBoolean(isDisabled));
+    public void changeUserStoreState(String domain, boolean isDisabled) throws Exception {
+        stub.changeUserStoreState(domain, isDisabled);
     }
 
     /**
@@ -163,15 +163,13 @@ public class UserStoreConfigAdminServiceClient {
      * @param className
      * @param domainId
      * @param properties
-     * @param isDisabled
      * @return
      */
-    public UserStoreDTO createUserStoreDTO(String className, String domainId, PropertyDTO[] properties, Boolean isDisabled) {
+    public UserStoreDTO createUserStoreDTO(String className, String domainId, PropertyDTO[] properties) {
         UserStoreDTO userStoreDTO = new UserStoreDTO();
         userStoreDTO.setClassName(className);
         userStoreDTO.setDomainId(domainId);
         userStoreDTO.setProperties(properties);
-        userStoreDTO.setDisabled(isDisabled);
         return userStoreDTO;
     }
 }
